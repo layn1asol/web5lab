@@ -51,7 +51,7 @@ body {
 @media screen and (max-width: 768px) {
     .text1 {
         font-size: 50px;
-        background: linear-gradient(90deg, #ffbb3c, #ec3496, #7255cb, #71d4ff);
+        background: linear-gradient(90deg, #ff3ca4, #da4ad8, #8055cb, #473ea9);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }

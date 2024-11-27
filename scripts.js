@@ -83,7 +83,7 @@ function getCookie(name) {
     return null;
 }
 
-// Функція для видалення cookies
+// function for deleting cookies
 function deleteCookie(name) {
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
 }
@@ -144,9 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 5th task
 document.addEventListener("DOMContentLoaded", () => {
-    // clear localStorage on page reload
-    localStorage.clear();
-
     // hide all elements in original state
     const listSelectors = document.querySelectorAll(".listSelector");
     const addListButtons = document.querySelectorAll(".addListButton");
@@ -189,14 +186,20 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(blockName, JSON.stringify(savedLists));
     };
 
+    // add event listeners for text selection
+    const selectEventListener = (event) => {
+        const selection = window.getSelection();
+        if (selection && selection.toString().trim()) {
+            const block = event.currentTarget;
+            const index = Array.from(block.parentNode.children).indexOf(block);
+            showControls(index); // show controls on text select
+        }
+    };
+
     // add select event listeners to all selectable blocks
-    document.querySelectorAll(".container > div").forEach((block, index) => {
-        block.addEventListener("mouseup", () => {
-            const selection = window.getSelection();
-            if (selection && selection.toString().trim()) {
-                showControls(index); // show controls on text select
-            }
-        });
+    document.querySelectorAll(".container > div").forEach((block) => {
+        block.addEventListener("mouseup", selectEventListener);  // for desktop
+        block.addEventListener("touchstart", selectEventListener); // for mobile
     });
 
     // add click event listeners to "add list" buttons
@@ -226,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // load existing content from localStorage
+    // load existing content from localStorage when the page loads
     for (const [blockName, listData] of Object.entries(localStorage)) {
         const block = document.querySelector(`.${blockName}`);
         if (block) {
@@ -242,6 +245,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
+
+    // clear localStorage on page reload
+    window.addEventListener("beforeunload", () => {
+        localStorage.clear();
+    });
 });
 
 
