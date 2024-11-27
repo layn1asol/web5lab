@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 5th task
 document.addEventListener("DOMContentLoaded", () => {
-    // load alignment first
+    // load alignment first to apply it immediately on page load
     loadAlignment();
 
     const listSelectors = document.querySelectorAll(".listSelector");
@@ -249,10 +249,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     }
-
-    // clear localStorage on page reload
+    
     window.addEventListener("beforeunload", () => {
-        localStorage.removeItem('textAlignment'); // keep alignment intact
+        // don't clear the text alignment data
+        for (const [key] of Object.entries(localStorage)) {
+            if (key !== 'textAlignment') {
+                localStorage.removeItem(key);
+            }
+        }
     });
 });
 
