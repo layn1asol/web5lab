@@ -144,7 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 5th task
 document.addEventListener("DOMContentLoaded", () => {
-    // hide all elements in original state
+    // load alignment first
+    loadAlignment();
+
     const listSelectors = document.querySelectorAll(".listSelector");
     const addListButtons = document.querySelectorAll(".addListButton");
     const labels = document.querySelectorAll("label[for^='selectBlock']");
@@ -231,24 +233,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // load existing content from localStorage when the page loads
     for (const [blockName, listData] of Object.entries(localStorage)) {
-        const block = document.querySelector(`.${blockName}`);
-        if (block) {
-            const savedLists = JSON.parse(listData);
-            savedLists.forEach((items) => {
-                const ol = document.createElement("ol");
-                items.forEach((item) => {
-                    const li = document.createElement("li");
-                    li.textContent = item.trim();
-                    ol.appendChild(li);
+        if (blockName !== 'textAlignment') { // Avoid overwriting alignment
+            const block = document.querySelector(`.${blockName}`);
+            if (block) {
+                const savedLists = JSON.parse(listData);
+                savedLists.forEach((items) => {
+                    const ol = document.createElement("ol");
+                    items.forEach((item) => {
+                        const li = document.createElement("li");
+                        li.textContent = item.trim();
+                        ol.appendChild(li);
+                    });
+                    block.appendChild(ol);
                 });
-                block.appendChild(ol);
-            });
+            }
         }
     }
 
     // clear localStorage on page reload
     window.addEventListener("beforeunload", () => {
-        localStorage.clear();
+        localStorage.removeItem('textAlignment'); // keep alignment intact
     });
 });
 
