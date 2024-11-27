@@ -177,7 +177,6 @@ body {
         grid-column: 1 / -1;
         grid-row: auto;
         width: 100%;
-        text-align: center;
         padding: 20px;
         font-size: 18px;
     }
@@ -204,6 +203,10 @@ body {
     .nav__link {
         font-size: 15px;
         margin: 10px 0;
+    }
+
+    .nav__text {
+        text-align: center;
     }
 }
 
