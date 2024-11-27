@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    font-family: 'Montserrat', sans-serif;
+    background: white;
+}
+
+.text1 {
+    font-size: 70px;
+    padding: 10px;
+    background: linear-gradient(-90deg, #ff3ca4, #da4ad8, #8055cb, #473ea9);
+    -webkit-background-clip: text; /* webkit is a html/css web browser rendering engine for safari/chrome */
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+}
+
+.text2 {
+    color: gray;
+    font-size: 30px;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .text1 {
+        font-size: 50px;
+        background: linear-gradient(90deg, #ffbb3c, #ec3496, #7255cb, #71d4ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .text2 {
+        font-size: 20px;
+    }
+}
